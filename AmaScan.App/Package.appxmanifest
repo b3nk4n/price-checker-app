@@ -3,7 +3,7 @@
   <Identity Name="6bd7e82b-9b8c-4983-99e0-8d5c2cb57d06" Publisher="CN=bsaut" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="6bd7e82b-9b8c-4983-99e0-8d5c2cb57d06" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Template App</DisplayName>
+    <DisplayName>AmaScan</DisplayName>
     <PublisherDisplayName>bsaut</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -24,5 +24,6 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>
