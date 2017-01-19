@@ -17,10 +17,10 @@
             <!-- Accent color overrides -->
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Dark">
-                    <Color x:Key="SystemAccentColor">#0063B1</Color>
+                    <Color x:Key="SystemAccentColor">#232F3E</Color>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <Color x:Key="SystemAccentColor">#0063B1</Color>
+                    <Color x:Key="SystemAccentColor">#232F3E</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 

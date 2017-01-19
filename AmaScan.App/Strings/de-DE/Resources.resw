@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.AppDescription" xml:space="preserve">
-    <value>Die Kurzbeschreibung der App kommt hier hin...</value>
+    <value>Scanne ganz einfach Barcodes von beliebigen Artikeln beim Einkaufen und vergleiche die Preise und Kundenwertungen auf Amazon.</value>
     <comment>AboutPage</comment>
   </data>
   <data name="About.ContributorsTitle" xml:space="preserve">

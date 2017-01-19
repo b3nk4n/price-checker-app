@@ -121,6 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\IAP\WindowsStoreProxy.xml" />
+    <Content Include="Assets\Images\ninject-logo.png" />
+    <Content Include="Assets\Images\zxing-logo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -149,13 +151,24 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\UWPCore.Framework\UWPCore.Framework.csproj">
+    <ProjectReference Include="..\..\uwpcore.framework\Framework\UWPCore.Framework\UWPCore.Framework.csproj">
       <Project>{a730354a-b009-4392-8d04-e065347e548a}</Project>
       <Name>UWPCore.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libs\ZXing.Net.Mobile.Core\ZXing.Net.Mobile.Core.csproj">
+      <Project>{7528dd0a-1781-47f4-adbf-eeddb011f6bb}</Project>
+      <Name>ZXing.Net.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs\ZXing.Net.Mobile.WindowsUniversal\ZXing.Net.Mobile.WindowsUniversal.csproj">
+      <Project>{1b000bca-4895-4acf-a0c6-3adf3a9bedf2}</Project>
+      <Name>ZXing.Net.Mobile.WindowsUniversal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs\ZXing.Net\zxing.portable.csproj">
+      <Project>{24b441f2-cbe9-4405-9fd0-72ebcbea0ec3}</Project>
+      <Name>zxing.portable</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>

@@ -10,6 +10,6 @@ namespace AmaScan.App
         /// <summary>
         /// The apps accent color.
         /// </summary>
-        public readonly static Color COLOR_ACCENT = Color.FromArgb(255, 0, 99, 177);
+        public readonly static Color COLOR_ACCENT = Color.FromArgb(255, 35, 47, 62);
     }
 }

@@ -38,9 +38,12 @@
                                 <!--<uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/country.png" />-->
                             </uwpcViewModels:AboutViewModel.Contributors>
                             <uwpcViewModels:AboutViewModel.ThirdParties>
-                                <!--<uwpcModels:ThirdPartyModel Title="Ninject for Portable Class Libraries" Author="Oren Novotny"
+                                <uwpcModels:ThirdPartyModel Title="Ninject for Portable Class Libraries" Author="Oren Novotny"
                                                             Icon="/Assets/Images/ninject-logo.png" License="Apache 2.0, MS-PL"
-                                                            Link="https://www.nuget.org/packages/Portable.Ninject/"/>-->
+                                                            Link="https://www.nuget.org/packages/Portable.Ninject/"/>
+                                <uwpcModels:ThirdPartyModel Title="ZXing.Net Mobile Library" Author="micjahn"
+                                                            Icon="/Assets/Images/zxing-logo.png" License="Apache 2.0"
+                                                            Link="https://zxingnet.codeplex.com/"/>
                             </uwpcViewModels:AboutViewModel.ThirdParties>
                         </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>
