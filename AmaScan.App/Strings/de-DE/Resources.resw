@@ -153,16 +153,24 @@
     <value>INFO</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="HistoryTitle.Text" xml:space="preserve">
+    <value>VERLAUF</value>
+    <comment>HistoryPage</comment>
+  </data>
   <data name="MainTitle.Text" xml:space="preserve">
-    <value>STARTSEITE</value>
+    <value>SUCHE</value>
     <comment>MainPage</comment>
   </data>
   <data name="Nav.About" xml:space="preserve">
     <value>Info</value>
     <comment>Navigation</comment>
   </data>
+  <data name="Nav.History" xml:space="preserve">
+    <value>Verlauf</value>
+    <comment>Navigation</comment>
+  </data>
   <data name="Nav.Main" xml:space="preserve">
-    <value>Startseite</value>
+    <value>Search</value>
     <comment>Navigation</comment>
   </data>
   <data name="Nav.Settings" xml:space="preserve">

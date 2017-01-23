@@ -19,7 +19,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <uwpcControls:PageHeader>
+        <uwpcControls:PageHeader Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
             <uwpcControls:PageHeader.HeaderContent>
                 <TextBlock x:Uid="SettingsTitle" Text="SETTINGS" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
             </uwpcControls:PageHeader.HeaderContent>

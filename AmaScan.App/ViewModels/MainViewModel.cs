@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmaScan.App.UI;
+using System;
 using System.Collections.Generic;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Devices;
@@ -9,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using ZXing;
 using ZXing.Mobile;
 
 namespace AmaScan.App.ViewModels
@@ -21,6 +23,14 @@ namespace AmaScan.App.ViewModels
         private static MobileBarcodeScanner scanner;
 
         private IDeviceInfoService _deviceInfoService;
+
+        public static string LastScannedCode { get; private set; }
+
+        public static DispatcherTimer DelayedNavigateUrlTimer { get; private set; }
+
+        public string BaseUri { get; private set; } = "https://www.amazon.de/";
+
+        public string SearchPath { get; private set; } = "s/field-keywords=";
 
         /// <summary>
         /// Gets or sets the URI page.
@@ -37,15 +47,31 @@ namespace AmaScan.App.ViewModels
         {
             _deviceInfoService = Injector.Get<IDeviceInfoService>();
 
+            DelayedNavigateUrlTimer = new DispatcherTimer();
+            DelayedNavigateUrlTimer.Interval = TimeSpan.FromSeconds(0.25);
+            DelayedNavigateUrlTimer.Tick += (s, obj) =>
+            {
+                DelayedNavigateUrlTimer.Stop();
+                Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
+            };
+
             ScanCommand = new DelegateCommand(async () =>
             {
                 scanner = new MobileBarcodeScanner(Dispatcher.CoreDispatcher);
                 scanner.UseCustomOverlay = true;
-                scanner.CustomOverlay = CreateCustomOverlay(_deviceInfoService.IsWindows);
+                scanner.CustomOverlay =ZXingOverlay.CreateCustomOverlay(_deviceInfoService.IsWindows, () =>
+                {
+                    NavigationService.GoBack();
+                });
                 var options = new MobileBarcodeScanningOptions()
                 {
                     // set auto rotate to false, becuase it was causing some crashed + (green) camera-deadlock
                     AutoRotate = false,
+                    PossibleFormats = new List<BarcodeFormat>()
+                    {
+                        BarcodeFormat.EAN_8,
+                        BarcodeFormat.EAN_13,
+                    }
                 };
 
                 // LOCK screen rotation
@@ -53,6 +79,7 @@ namespace AmaScan.App.ViewModels
                 Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences = currentOrientation;
 
                 var result = await scanner.Scan(options);
+                scanner.AutoFocus();
 
                 if (result != null)
                 {
@@ -60,6 +87,9 @@ namespace AmaScan.App.ViewModels
                     {
                         var parsed = ZXing.Client.Result.ResultParser.parseResult(result);
 
+                        // delayed navigation to the product, since this is not running in the new page
+                        LastScannedCode = parsed.DisplayResult;
+                        DelayedNavigateUrlTimer.Start();
                     });
                 }
             },
@@ -73,107 +103,14 @@ namespace AmaScan.App.ViewModels
         {
             base.OnNavigatedTo(parameter, mode, state);
 
-            Uri = new Uri("http://www.amazon.de/", UriKind.Absolute);
-        }
-
-        private UIElement CreateCustomOverlay(bool showCancelButton)
-        {
-            var root = new Grid();
-            var rectBottom = new Rectangle()
+            if (LastScannedCode != null)
             {
-                Fill = new SolidColorBrush(Colors.Black),
-                Height = 48,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Opacity = 0.2,
-            };
-            root.Children.Add(rectBottom);
-
-            var rectTop = new Rectangle()
-            {
-                Fill = new SolidColorBrush(Colors.Black),
-                Height = 48,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Top,
-                Opacity = 0.2,
-            };
-            root.Children.Add(rectTop);
-
-            var viewBox = new Viewbox()
-            {
-                Margin = new Thickness(64)
-            };
-            var crosshairGrid = new Grid()
-            {
-                Width = 240,
-                Height = 240,
-                Opacity = 0.2,
-            };
-            crosshairGrid.Children.Add(new Border()
-            {
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(2, 2, 0, 0),
-                Width = 64,
-                Height = 64,
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Left
-            });
-            crosshairGrid.Children.Add(new Border()
-            {
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(0, 2, 2, 0),
-                Width = 64,
-                Height = 64,
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Right
-            });
-            crosshairGrid.Children.Add(new Border()
-            {
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(0, 0, 2, 2),
-                Width = 64,
-                Height = 64,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Right
-            });
-            crosshairGrid.Children.Add(new Border()
-            {
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(2, 0, 0, 2),
-                Width = 64,
-                Height = 64,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Left
-            });
-            crosshairGrid.Children.Add(new Rectangle()
-            {
-                Fill = new SolidColorBrush(Colors.Black),
-                Width = 128,
-                Height = 2,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center
-            });
-
-            viewBox.Child = crosshairGrid;
-            root.Children.Add(viewBox);
-
-            if (showCancelButton)
-            {
-                var button = new Button()
-                {
-                    Style = (Style)Application.Current.Resources["IconButtonStyle"],
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Content = ((char)GlyphIcons.Close).ToString()
-                };
-                button.Click += (s, e) => {
-                    //_scanner.Cancel(); causes a crash, use navigation service instead
-                    NavigationService.GoBack();
-                };
-                root.Children.Add(button);
+                Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
             }
-
-            return root;
+            else if (mode != NavigationMode.Back)
+            {
+                Uri = new Uri(BaseUri, UriKind.Absolute);
+            }
         }
     }
 }

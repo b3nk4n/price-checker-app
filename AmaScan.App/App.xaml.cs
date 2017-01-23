@@ -92,10 +92,23 @@ namespace AmaScan.App
             {
                 new NavMenuItem()
                 {
-                    Symbol = GlyphIcons.HomeOutline,
+                    Symbol = GlyphIcons.Search,
                     Label = Localizer.Get("Nav.Main"),
                     DestinationPage = typeof(MainPage)
-                }
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.History,
+                    Label = Localizer.Get("Nav.History"),
+                    DestinationPage = typeof(HistoryPage)
+                },
+                //new NavMenuItem()
+                //{
+                //    Symbol = GlyphIcons.HomeOutline,
+                //    Label = Localizer.Get("Nav.About"),
+                //    DestinationPage = typeof(MainPage),
+                //    Parameter = "bbb"
+                //}
             };
         }
 

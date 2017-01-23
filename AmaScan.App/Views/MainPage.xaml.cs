@@ -6,12 +6,13 @@ namespace AmaScan.App.Views
     /// <summary>
     /// The apps main page.
     /// </summary>
-    public sealed partial class MainPage : UniversalPage
+    public partial class MainPage : UniversalPage
     {
         /// <summary>
         /// The view model instance.
         /// </summary>
         public MainViewModel ViewModel { get; private set; }
+
 
         public MainPage()
         {
