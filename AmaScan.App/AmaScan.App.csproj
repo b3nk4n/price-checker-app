@@ -126,6 +126,7 @@
   <ItemGroup>
     <Content Include="Assets\IAP\WindowsStoreProxy.xml" />
     <Content Include="Assets\Images\ninject-logo.png" />
+    <Content Include="Assets\Images\uwpcommunity-logo.png" />
     <Content Include="Assets\Images\zxing-logo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

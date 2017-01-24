@@ -8,6 +8,7 @@
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
     xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"
     xmlns:uwpcModels="using:UWPCore.Framework.Models"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -15,12 +16,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <uwpcControls:PageHeader Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
-            <uwpcControls:PageHeader.HeaderContent>
-                <TextBlock x:Uid="AboutTitle" Text="ABOUT" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
-            </uwpcControls:PageHeader.HeaderContent>
-        </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -44,11 +39,23 @@
                                 <uwpcModels:ThirdPartyModel Title="ZXing.Net Mobile Library" Author="micjahn"
                                                             Icon="/Assets/Images/zxing-logo.png" License="Apache 2.0"
                                                             Link="https://zxingnet.codeplex.com/"/>
+                                <uwpcModels:ThirdPartyModel Title="UWP Community Tookit" Author=".NET Foundation and Contributors"
+                                                            Icon="/Assets/Images/uwpcommunity-logo.png" License="MIT"
+                                                            Link="https://zxingnet.codeplex.com/"/>
                             </uwpcViewModels:AboutViewModel.ThirdParties>
                         </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>
                 </uwpcControls:AboutControl>
             </ScrollViewer>
         </Grid>
+
+        <toolkit:DropShadowPanel>
+            <uwpcControls:PageHeader Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">
+                <uwpcControls:PageHeader.HeaderContent>
+                    <TextBlock x:Uid="AboutTitle" Text="ABOUT" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                </uwpcControls:PageHeader.HeaderContent>
+            </uwpcControls:PageHeader>
+        </toolkit:DropShadowPanel>
+
     </Grid>
 </uwpcControls:UniversalPage>
