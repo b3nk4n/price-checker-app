@@ -11,8 +11,10 @@ namespace AmaScan.UnitTests.Tools
     {
         private IStorageService StorageService = new LocalStorageService();
 
+        #region Camera
+
         [TestMethod]
-        public async Task TestExtractProductTitle()
+        public async Task TestCameraExtractProductTitle()
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/camera.html");
             var htmlContent = await StorageService.ReadFile(file);
@@ -22,13 +24,39 @@ namespace AmaScan.UnitTests.Tools
         }
 
         [TestMethod]
-        public async Task TestExtractImageUri()
+        public async Task TestCameraExtractImageUri()
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/camera.html");
             var htmlContent = await StorageService.ReadFile(file);
             var uri = HtmlTools.ExtractImageUriFromHtml(htmlContent);
 
-            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/71%2BBSM8Af7L._SY355_.jpg", uri.AbsoluteUri);
+            Assert.AreEqual("https://images-na.ssl-images-amazon.com/images/I/518a97hQRvL._SX355_.jpg", uri.AbsoluteUri);
         }
+
+        #endregion
+
+        #region Accu
+
+        [TestMethod]
+        public async Task TestAccuExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/accu.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = HtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+
+            Assert.AreEqual("Lenovo Think Pad Battery (9 Cell)", title);
+        }
+
+        [TestMethod]
+        public async Task TestAccuExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/accu.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = HtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-na.ssl-images-amazon.com/images/I/31s%2BtYHUYpL._SX425_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
     }
 }

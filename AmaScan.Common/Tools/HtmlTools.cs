@@ -13,13 +13,14 @@ namespace AmaScan.Common.Tools
             var v = regex.Match(html);
             string s = v.Groups[1].ToString();
             string trimmedContent = s.Trim();
+            trimmedContent = trimmedContent.Replace("  ", " ");
             return trimmedContent;
         }
 
         public static Uri ExtractImageUriFromHtml(string html)
         {
             // extract html region
-            Regex regex = new Regex("<li class=\"swatchHoverExp a-hidden maintain-height\">(.*?)</li>", RegexOptions.Singleline);
+            Regex regex = new Regex("<li class=\"image item itemNo0 maintain-height selected\">(.*?)</li>", RegexOptions.Singleline);
             var v = regex.Match(html);
             string htmlInner = v.Groups[1].ToString();
 
