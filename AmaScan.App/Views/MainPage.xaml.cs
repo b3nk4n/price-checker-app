@@ -1,4 +1,5 @@
-﻿using UWPCore.Framework.Controls;
+﻿using System;
+using UWPCore.Framework.Controls;
 using AmaScan.App.ViewModels;
 
 namespace AmaScan.App.Views
@@ -11,15 +12,21 @@ namespace AmaScan.App.Views
         /// <summary>
         /// The view model instance.
         /// </summary>
-        public MainViewModel ViewModel { get; private set; }
+        public static IMainViewModel ViewModel { get; private set; }
 
 
         public MainPage()
         {
             InitializeComponent();
 
-            ViewModel = new MainViewModel();
+            ViewModel = Injector.Get<IMainViewModel>();
             DataContext = ViewModel;
+
+            WebViewer.NavigationCompleted += async (s, e) =>
+            {
+                string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+                ViewModel.SaveHistory(htmlContent);
+            };
         }
     }
 }

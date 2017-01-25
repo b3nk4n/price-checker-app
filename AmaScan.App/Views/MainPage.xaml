@@ -8,6 +8,59 @@
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
+    <uwpcControls:UniversalPage.Resources>
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="FocusVisualMargin" Value="-3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="SelectElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="SelectElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <toolkit:DropShadowPanel ShadowOpacity="0.66">
+                                <Ellipse x:Name="BackElement" Fill="{TemplateBinding Background}" />
+                            </toolkit:DropShadowPanel>
+                            <Ellipse x:Name="SelectElement" Fill="Transparent" />
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </uwpcControls:UniversalPage.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -16,7 +69,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <WebView uwpcControls:WebViewExtensions.UriSource="{Binding Uri}" DefaultBackgroundColor="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <WebView x:Name="WebViewer" uwpcControls:WebViewExtensions.UriSource="{Binding Uri}" DefaultBackgroundColor="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </Grid>
 
         <toolkit:DropShadowPanel ShadowOpacity="0.66">
@@ -28,8 +81,8 @@
         </toolkit:DropShadowPanel>
 
         <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="80" Width="80" Margin="16"
-                Command="{Binding ScanCommand}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-            <Button.Template>
+                Command="{Binding ScanCommand}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource RoundButtonStyle}">
+            <!--<Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <toolkit:DropShadowPanel ShadowOpacity="0.66">
@@ -40,7 +93,7 @@
                                   VerticalAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
-            </Button.Template>
+            </Button.Template>-->
             <Path Width="28" Height="28" Stretch="Fill" Opacity="0.8" Fill="White" Data="F1 M 19,19L 20.1875,19L 20.1875,57L 19,57L 19,19 Z M 22.1666,19L 23.75,19L 23.75,57L 22.1666,57L 22.1666,19 Z M 25.3333,19L 28.5,19L 28.5,57L 25.3333,57L 25.3333,19 Z M 30.0833,19L 31.6666,19L 31.6666,57L 30.0833,57L 30.0833,19 Z M 33.25,19L 34.0416,19L 34.0416,57L 33.25,57L 33.25,19 Z M 38,19L 42.75,19L 42.75,57L 38,57L 38,19 Z M 44.3333,19L 45.9166,19L 45.9166,57L 44.3333,57L 44.3333,19 Z M 50.6667,19L 53.8333,19L 53.8333,57L 50.6667,57L 50.6667,19 Z M 55.4167,19L 57,19L 57,57L 55.4167,57L 55.4167,19 Z M 47.5,19L 48.2917,19L 48.2917,57L 47.5,57L 47.5,19 Z "/>
         </Button>
 

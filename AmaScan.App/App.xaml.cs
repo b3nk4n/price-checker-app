@@ -9,6 +9,7 @@ using AmaScan.App.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
+using AmaScan.App.Module;
 
 namespace AmaScan.App
 {
@@ -32,7 +33,7 @@ namespace AmaScan.App
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-            : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
+            : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule(), new AppModule())
         {
             // initialize Microsoft Application Insights
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -101,14 +102,7 @@ namespace AmaScan.App
                     Symbol = GlyphIcons.History,
                     Label = Localizer.Get("Nav.History"),
                     DestinationPage = typeof(HistoryPage)
-                },
-                //new NavMenuItem()
-                //{
-                //    Symbol = GlyphIcons.HomeOutline,
-                //    Label = Localizer.Get("Nav.About"),
-                //    DestinationPage = typeof(MainPage),
-                //    Parameter = "bbb"
-                //}
+                }
             };
         }
 

@@ -1,15 +1,9 @@
 ﻿using AmaScan.App.UI;
 using System;
 using System.Collections.Generic;
-using UWPCore.Framework.Common;
 using UWPCore.Framework.Devices;
 using UWPCore.Framework.Mvvm;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 using ZXing;
 using ZXing.Mobile;
 
@@ -18,15 +12,13 @@ namespace AmaScan.App.ViewModels
     /// <summary>
     /// The view model of the main page.
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IMainViewModel
     {
         private static MobileBarcodeScanner scanner;
 
         private IDeviceInfoService _deviceInfoService;
 
         public static string LastScannedCode { get; private set; }
-
-        public static DispatcherTimer DelayedNavigateUrlTimer { get; private set; }
 
         public string BaseUri { get; private set; } = "https://www.amazon.de/";
 
@@ -47,19 +39,11 @@ namespace AmaScan.App.ViewModels
         {
             _deviceInfoService = Injector.Get<IDeviceInfoService>();
 
-            DelayedNavigateUrlTimer = new DispatcherTimer();
-            DelayedNavigateUrlTimer.Interval = TimeSpan.FromSeconds(0.25);
-            DelayedNavigateUrlTimer.Tick += (s, obj) =>
-            {
-                DelayedNavigateUrlTimer.Stop();
-                Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
-            };
-
             ScanCommand = new DelegateCommand(async () =>
             {
                 scanner = new MobileBarcodeScanner(Dispatcher.CoreDispatcher);
                 scanner.UseCustomOverlay = true;
-                scanner.CustomOverlay =ZXingOverlay.CreateCustomOverlay(_deviceInfoService.IsWindows, () =>
+                scanner.CustomOverlay = ZXingOverlay.CreateCustomOverlay(_deviceInfoService.IsWindows, () =>
                 {
                     NavigationService.GoBack();
                 });
@@ -89,7 +73,7 @@ namespace AmaScan.App.ViewModels
 
                         // delayed navigation to the product, since this is not running in the new page
                         LastScannedCode = parsed.DisplayResult;
-                        DelayedNavigateUrlTimer.Start();
+                        Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
                     });
                 }
             },
@@ -107,10 +91,15 @@ namespace AmaScan.App.ViewModels
             {
                 Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
             }
-            else if (mode != NavigationMode.Back)
+            else
             {
                 Uri = new Uri(BaseUri, UriKind.Absolute);
             }
+        }
+
+        public void SaveHistory(string html)
+        {
+
         }
     }
 }
