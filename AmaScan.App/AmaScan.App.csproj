@@ -101,6 +101,8 @@
     <Compile Include="AppConstants.cs" />
     <Compile Include="Models\HistoryItem.cs" />
     <Compile Include="Module\AppModule.cs" />
+    <Compile Include="Services\HistoryService.cs" />
+    <Compile Include="Services\IHistoryService.cs" />
     <Compile Include="UI\ZXingOverlay.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -184,9 +186,7 @@
       <Name>zxing.portable</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

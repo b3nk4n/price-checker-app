@@ -1,6 +1,6 @@
-﻿using AmaScan.App.ViewModels;
+﻿using AmaScan.App.Services;
+using AmaScan.App.ViewModels;
 using Ninject.Modules;
-using System;
 
 namespace AmaScan.App.Module
 {
@@ -9,6 +9,7 @@ namespace AmaScan.App.Module
         public override void Load()
         {
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
+            Bind<IHistoryService>().To<HistoryService>().InSingletonScope();
         }
     }
 }

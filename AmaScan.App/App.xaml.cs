@@ -10,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
 using AmaScan.App.Module;
+using AmaScan.App.Services;
 
 namespace AmaScan.App
 {
@@ -28,6 +29,8 @@ namespace AmaScan.App
         /// </summary>
         private ILicenseService LicenseService { get; set; }
 
+        private IHistoryService HistoryService { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -44,6 +47,7 @@ namespace AmaScan.App
 
             // inject services
             LicenseService = Injector.Get<ILicenseService>();
+            HistoryService = Injector.Get<IHistoryService>();
         }
 
         public async override Task OnInitializeAsync(IActivatedEventArgs args)
@@ -62,20 +66,15 @@ namespace AmaScan.App
 #endif
         }
 
-        public override void OnResuming(object args)
+        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            base.OnResuming(args);
-        }
+            await HistoryService.Load();
 
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
-        {
             var pageType = DefaultPage;
             object parameter = null;
 
             // start the user experience
             NavigationService.Navigate(pageType, parameter);
-
-            return Task.FromResult<object>(null);
         }
 
         public async override Task OnSuspendingAsync(SuspendingEventArgs e)

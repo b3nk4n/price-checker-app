@@ -11,6 +11,7 @@ using AmaScan.Common.Tools;
 using AmaScan.App.Models;
 using UWPCore.Framework.Storage;
 using Ninject;
+using AmaScan.App.Services;
 
 namespace AmaScan.App.ViewModels
 {
@@ -22,6 +23,8 @@ namespace AmaScan.App.ViewModels
         private static MobileBarcodeScanner scanner;
 
         public IDeviceInfoService DeviceInfoService { get; private set; }
+
+        public IHistoryService HistoryService {get; private set; }
 
         public static string LastScannedCode { get; private set; }
 
@@ -43,9 +46,10 @@ namespace AmaScan.App.ViewModels
         public ICommand ScanCommand { get; private set; }
 
         [Inject]
-        public MainViewModel(IDeviceInfoService deviceInfoService)
+        public MainViewModel(IDeviceInfoService deviceInfoService, IHistoryService historyService)
         {
             DeviceInfoService = deviceInfoService;
+            HistoryService = historyService;
 
             ScanCommand = new DelegateCommand(async () =>
             {
@@ -111,6 +115,8 @@ namespace AmaScan.App.ViewModels
                 };
 
                 // save to history
+                HistoryService.Items.Add(historyItem);
+                await HistoryService.Save();
             }
         }
 
