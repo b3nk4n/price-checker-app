@@ -8,6 +8,9 @@ using ZXing;
 using ZXing.Mobile;
 using Windows.UI.Xaml.Controls;
 using AmaScan.Common.Tools;
+using AmaScan.App.Models;
+using UWPCore.Framework.Storage;
+using Ninject;
 
 namespace AmaScan.App.ViewModels
 {
@@ -18,7 +21,7 @@ namespace AmaScan.App.ViewModels
     {
         private static MobileBarcodeScanner scanner;
 
-        private IDeviceInfoService _deviceInfoService;
+        public IDeviceInfoService DeviceInfoService { get; private set; }
 
         public static string LastScannedCode { get; private set; }
 
@@ -39,15 +42,16 @@ namespace AmaScan.App.ViewModels
         /// </summary>
         public ICommand ScanCommand { get; private set; }
 
-        public MainViewModel()
+        [Inject]
+        public MainViewModel(IDeviceInfoService deviceInfoService)
         {
-            _deviceInfoService = Injector.Get<IDeviceInfoService>();
+            DeviceInfoService = deviceInfoService;
 
             ScanCommand = new DelegateCommand(async () =>
             {
                 scanner = new MobileBarcodeScanner(Dispatcher.CoreDispatcher);
                 scanner.UseCustomOverlay = true;
-                scanner.CustomOverlay = ZXingOverlay.CreateCustomOverlay(_deviceInfoService.IsWindows, () =>
+                scanner.CustomOverlay = ZXingOverlay.CreateCustomOverlay(DeviceInfoService.IsWindows, () =>
                 {
                     NavigationService.GoBack();
                 });
@@ -94,14 +98,17 @@ namespace AmaScan.App.ViewModels
 
             if (args.IsSuccess)
             {
-                string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
-                string title = HtmlTools.ExtractTextFromHtml(htmlContent, "productTitle"); 
+                var htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+                var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+                var imgUri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
 
-                //var historyItem = new HistoryItem()
-                //{
-                //    Link = args.Uri,
-                //    Timestamp = DateTimeOffset.Now,
-                //};
+                var historyItem = new HistoryItem()
+                {
+                    Link = args.Uri,
+                    Timestamp = DateTimeOffset.Now,
+                    Title = title,
+                    Thumbnail = imgUri
+                };
 
                 // save to history
             }

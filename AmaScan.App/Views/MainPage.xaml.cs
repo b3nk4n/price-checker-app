@@ -1,5 +1,4 @@
-﻿using System;
-using UWPCore.Framework.Controls;
+﻿using UWPCore.Framework.Controls;
 using AmaScan.App.ViewModels;
 
 namespace AmaScan.App.Views
@@ -22,13 +21,6 @@ namespace AmaScan.App.Views
             ViewModel = Injector.Get<IMainViewModel>();
             ViewModel.RegisterWebView(WebViewer);
             DataContext = ViewModel;
-
-            //WebViewer.NavigationCompleted += async (s, e) =>
-            //{
-            //    //string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
-
-            //    //ViewModel.SaveHistory(htmlContent);
-            //};
         }
     }
 }

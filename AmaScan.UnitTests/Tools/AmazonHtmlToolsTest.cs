@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AmaScan.UnitTests.Tools
 {
     [TestClass]
-    public class HtmlToolsTest
+    public class AmazonHtmlToolsTest
     {
         private IStorageService StorageService = new LocalStorageService();
 
@@ -18,7 +18,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/camera.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var title = HtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
 
             Assert.AreEqual("Sony Alpha 6000 Systemkamera (24 Megapixel, 7,6 cm (3\") LCD-Display, Exmor APS-C Sensor, Full-HD, High Speed Hybrid AF) inkl. SEL-P1650 Objektiv schwarz", title);
         }
@@ -28,7 +28,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/camera.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var uri = HtmlTools.ExtractImageUriFromHtml(htmlContent);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
 
             Assert.AreEqual("https://images-na.ssl-images-amazon.com/images/I/518a97hQRvL._SX355_.jpg", uri.AbsoluteUri);
         }
@@ -42,7 +42,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/accu.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var title = HtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
 
             Assert.AreEqual("Lenovo Think Pad Battery (9 Cell)", title);
         }
@@ -52,7 +52,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/accu.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var uri = HtmlTools.ExtractImageUriFromHtml(htmlContent);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
 
             Assert.AreEqual("https://images-na.ssl-images-amazon.com/images/I/31s%2BtYHUYpL._SX425_.jpg", uri.AbsoluteUri);
         }

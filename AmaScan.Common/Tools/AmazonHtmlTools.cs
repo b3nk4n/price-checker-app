@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace AmaScan.Common.Tools
 {
-    public static class HtmlTools
+    public static class AmazonHtmlTools
     {
         public static string ExtractTextFromHtml(string html, string id)
         {

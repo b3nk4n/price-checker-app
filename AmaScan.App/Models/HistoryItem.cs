@@ -11,6 +11,6 @@ namespace AmaScan.App.Models
 
         public DateTimeOffset Timestamp { get; set; }
 
-        public string ThumbnailPath { get; set; } // try to cache the image locally in a folder. And simply save the path.
+        public Uri Thumbnail { get; set; } // TODO: cache image offline, and only store the file path?
     }
 }
