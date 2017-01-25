@@ -6,6 +6,8 @@ using UWPCore.Framework.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using ZXing;
 using ZXing.Mobile;
+using Windows.UI.Xaml.Controls;
+using AmaScan.Common.Tools;
 
 namespace AmaScan.App.ViewModels
 {
@@ -23,6 +25,8 @@ namespace AmaScan.App.ViewModels
         public string BaseUri { get; private set; } = "https://www.amazon.de/";
 
         public string SearchPath { get; private set; } = "s/field-keywords=";
+
+        public WebView WebViewer { get; private set; }
 
         /// <summary>
         /// Gets or sets the URI page.
@@ -74,6 +78,7 @@ namespace AmaScan.App.ViewModels
                         // delayed navigation to the product, since this is not running in the new page
                         LastScannedCode = parsed.DisplayResult;
                         Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
+                        WebViewer.NavigationCompleted += WebViewer_NavigationCompleted;
                     });
                 }
             },
@@ -81,6 +86,25 @@ namespace AmaScan.App.ViewModels
             {
                 return true;
             });
+        }
+
+        private async void WebViewer_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            WebViewer.NavigationCompleted -= WebViewer_NavigationCompleted;
+
+            if (args.IsSuccess)
+            {
+                string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+                string title = HtmlTools.ExtractTextFromHtml(htmlContent, "productTitle"); 
+
+                //var historyItem = new HistoryItem()
+                //{
+                //    Link = args.Uri,
+                //    Timestamp = DateTimeOffset.Now,
+                //};
+
+                // save to history
+            }
         }
 
         public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
@@ -97,9 +121,9 @@ namespace AmaScan.App.ViewModels
             }
         }
 
-        public void SaveHistory(string html)
+        public void RegisterWebView(WebView webViewer)
         {
-
+            WebViewer = webViewer;
         }
     }
 }

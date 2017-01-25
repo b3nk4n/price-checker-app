@@ -20,13 +20,15 @@ namespace AmaScan.App.Views
             InitializeComponent();
 
             ViewModel = Injector.Get<IMainViewModel>();
+            ViewModel.RegisterWebView(WebViewer);
             DataContext = ViewModel;
 
-            WebViewer.NavigationCompleted += async (s, e) =>
-            {
-                string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
-                ViewModel.SaveHistory(htmlContent);
-            };
+            //WebViewer.NavigationCompleted += async (s, e) =>
+            //{
+            //    //string htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+
+            //    //ViewModel.SaveHistory(htmlContent);
+            //};
         }
     }
 }
