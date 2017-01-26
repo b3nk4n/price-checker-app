@@ -11,5 +11,10 @@ namespace AmaScan.App
         /// The apps accent color.
         /// </summary>
         public readonly static Color COLOR_ACCENT = Color.FromArgb(255, 35, 47, 62);
+
+        /// <summary>
+        /// The navigation key for links.
+        /// </summary>
+        public const string NAV_LINK = "link:";
     }
 }

@@ -104,6 +104,8 @@
     <Compile Include="Services\HistoryService.cs" />
     <Compile Include="Services\IHistoryService.cs" />
     <Compile Include="UI\ZXingOverlay.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\IHistoryViewModel.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

@@ -9,6 +9,8 @@ namespace AmaScan.App.Module
         public override void Load()
         {
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
+            Bind<IHistoryViewModel>().To<HistoryViewModel>().InSingletonScope();
+
             Bind<IHistoryService>().To<HistoryService>().InSingletonScope();
         }
     }

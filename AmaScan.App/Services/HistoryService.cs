@@ -33,7 +33,10 @@ namespace AmaScan.App.Services
             {
                 _hasLoaded = true;
                 var content = await StorageService.ReadFile(DATA_FILE);
-                Items = SerializationService.DeserializeJson<IList<HistoryItem>>(content);
+                if (content != null)
+                {
+                    Items = SerializationService.DeserializeJson<IList<HistoryItem>>(content);
+                }
             }
         }
 

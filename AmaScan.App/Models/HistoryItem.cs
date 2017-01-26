@@ -11,6 +11,6 @@ namespace AmaScan.App.Models
 
         public DateTimeOffset Timestamp { get; set; }
 
-        public Uri Thumbnail { get; set; } // TODO: cache image offline, and only store the file path?
+        public Uri Thumbnail { get; set; } // TODO: cache image offline, and only store the file path?1
     }
 }

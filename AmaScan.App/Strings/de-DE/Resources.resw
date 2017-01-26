@@ -153,6 +153,10 @@
     <value>INFO</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="Delete.Label" xml:space="preserve">
+    <value>Entfernen</value>
+    <comment>HistoryPage</comment>
+  </data>
   <data name="HistoryTitle.Text" xml:space="preserve">
     <value>VERLAUF</value>
     <comment>HistoryPage</comment>
@@ -176,6 +180,10 @@
   <data name="Nav.Settings" xml:space="preserve">
     <value>Einstellungen</value>
     <comment>Navigation</comment>
+  </data>
+  <data name="OpenInExternalBrowser.Label" xml:space="preserve">
+    <value>In externem Browser öffnen</value>
+    <comment>HistoryPage</comment>
   </data>
   <data name="SettingsPersonalization.Text" xml:space="preserve">
     <value>Personalisierung</value>
