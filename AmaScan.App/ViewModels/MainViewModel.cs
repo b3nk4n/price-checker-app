@@ -124,14 +124,26 @@ namespace AmaScan.App.ViewModels
         {
             base.OnNavigatedTo(parameter, mode, state);
 
-            if (LastScannedCode != null)
+            string uri = BaseUri;
+
+            if (parameter != null)
             {
-                Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
+                var paramData = parameter as string;
+                if (paramData != null)
+                {
+                    if (paramData.StartsWith(AppConstants.NAV_LINK))
+                    {
+                        uri = paramData.Replace(AppConstants.NAV_LINK, string.Empty);
+                    }
+                }
             }
-            else
+            else if (LastScannedCode != null)
             {
-                Uri = new Uri(BaseUri, UriKind.Absolute);
+                uri = string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode);
             }
+
+            // browse to the specified page
+            Uri = new Uri(uri, UriKind.Absolute);
         }
 
         public void RegisterWebView(WebView webViewer)

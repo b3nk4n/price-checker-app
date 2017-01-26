@@ -15,6 +15,6 @@ namespace AmaScan.App
         /// <summary>
         /// The navigation key for links.
         /// </summary>
-        public const string NAV_LINK = "link:";
+        public const string NAV_LINK = "nav-link:";
     }
 }
