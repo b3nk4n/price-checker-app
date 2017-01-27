@@ -116,6 +116,8 @@
   <ItemGroup>
     <Content Include="Assets\Html\accu.html" />
     <Content Include="Assets\Html\camera.html" />
+    <Content Include="Assets\Html\not-found.html" />
+    <Content Include="Assets\Html\tomtaylor.html" />
     <Content Include="Assets\Html\zeitwissen.html" />
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

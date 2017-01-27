@@ -7,6 +7,8 @@ namespace AmaScan.Common.Tools
 {
     public static class AmazonHtmlTools
     {
+        public const string FALLBACK_IMAGE = "/Assets/Square44x44Logo.scale-200.png";
+
         public static string ExtractTextFromHtmlInDetailPage(string html, string id)
         {
             Regex regex = new Regex(string.Format("<span id=\"{0}\" .*?>(.*?)</span>", id), RegexOptions.Singleline);
@@ -30,7 +32,11 @@ namespace AmaScan.Common.Tools
             string sInner = vInner.Groups[1].ToString();
 
             string trimmedContent = sInner.Trim();
-            return new Uri(trimmedContent, UriKind.Absolute);
+
+            if (trimmedContent != string.Empty)
+                return new Uri(trimmedContent, UriKind.Absolute);
+
+            return new Uri(FALLBACK_IMAGE, UriKind.Relative);
         }
 
         public static string ExtractTextFromHtml(string html, string id)
@@ -56,7 +62,11 @@ namespace AmaScan.Common.Tools
             string sInner = vInner.Groups[1].ToString();
 
             string trimmedContent = sInner.Trim();
-            return new Uri(trimmedContent, UriKind.Absolute);
+
+            if (trimmedContent != string.Empty)
+                return new Uri(trimmedContent, UriKind.Absolute);
+
+            return new Uri(FALLBACK_IMAGE, UriKind.Relative);
         }
     }
 }

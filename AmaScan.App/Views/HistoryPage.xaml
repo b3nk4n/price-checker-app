@@ -6,20 +6,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:swipe="using:Universal.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
+        <uwpcConverters:DateTimeConverter x:Key="dtConv" />
+
         <DataTemplate x:Key="HistoryItemDataTemplate">
             <Grid Margin="4" Padding="16,0,8,0" Background="#01888888"
                   RightTapped="HistoryItem_RightTapped" Tapped="HistoryItem_Tapped" Holding="NoteListItem_Holding" Tag="{Binding }">
                 <!-- Give it a light color, because Transparent is BADLY clickable/touchable -->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Title}" />
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Height="72" Width="72" Margin="8">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding Thumbnail}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Margin="8">
+                        <TextBlock Text="{Binding Timestamp, Converter={StaticResource dtConv}}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" FontSize="14" />
+                        <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
+                    </StackPanel>
+                    
+                </StackPanel>
+                
 
             </Grid>
         </DataTemplate>

@@ -82,5 +82,53 @@ namespace AmaScan.UnitTests.Tools
         }
 
         #endregion
+
+        #region TomTaylor
+
+        [TestMethod]
+        public async Task TestTomTaylorExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/tomtaylor.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+
+            Assert.AreEqual("TOM TAILOR Herren Freizeithemd Floyd Indigo Look Stripe Shirt", title);
+        }
+
+        [TestMethod]
+        public async Task TestTomTaylorExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/tomtaylor.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/51LFoT9DwqL._AC_US174_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
+        #region Not Found
+
+        [TestMethod]
+        public async Task TestNotFoundExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/not-found.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+
+            Assert.AreEqual(string.Empty, title);
+        }
+
+        [TestMethod]
+        public async Task TestNotFoundExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/not-found.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual(AmazonHtmlTools.FALLBACK_IMAGE, uri.OriginalString);
+        }
+
+        #endregion
     }
 }

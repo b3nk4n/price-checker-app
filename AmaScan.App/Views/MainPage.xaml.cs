@@ -1,5 +1,6 @@
 ﻿using UWPCore.Framework.Controls;
 using AmaScan.App.ViewModels;
+using Windows.UI.Xaml.Navigation;
 
 namespace AmaScan.App.Views
 {
@@ -21,6 +22,12 @@ namespace AmaScan.App.Views
             ViewModel = Injector.Get<IMainViewModel>();
             ViewModel.RegisterWebView(WebViewer);
             DataContext = ViewModel;
+
+            Loaded += (s, e) =>
+            {
+                ButtonPloppInAnimation.Begin();
+            };
         }
+
     }
 }
