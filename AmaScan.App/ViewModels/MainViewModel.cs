@@ -9,7 +9,6 @@ using ZXing.Mobile;
 using Windows.UI.Xaml.Controls;
 using AmaScan.Common.Tools;
 using AmaScan.App.Models;
-using UWPCore.Framework.Storage;
 using Ninject;
 using AmaScan.App.Services;
 
@@ -72,10 +71,6 @@ namespace AmaScan.App.ViewModels
                         BarcodeFormat.UPC_EAN_EXTENSION
                     }
                 };
-
-                // LOCK screen rotation
-                var currentOrientation = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().CurrentOrientation;
-                Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences = currentOrientation;
 
                 var result = await scanner.Scan(options);
                 scanner.AutoFocus();
