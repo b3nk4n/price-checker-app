@@ -43,8 +43,8 @@ namespace AmaScan.App.UI
             };
             var crosshairGrid = new Grid()
             {
-                Width = 240,
-                Height = 240,
+                Width = 280,
+                Height = 120,
                 Opacity = 0.2,
             };
             crosshairGrid.Children.Add(new Border()
@@ -52,7 +52,7 @@ namespace AmaScan.App.UI
                 BorderBrush = new SolidColorBrush(Colors.Black),
                 BorderThickness = new Thickness(2, 2, 0, 0),
                 Width = 64,
-                Height = 64,
+                Height = 32,
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Left
             });
@@ -61,7 +61,7 @@ namespace AmaScan.App.UI
                 BorderBrush = new SolidColorBrush(Colors.Black),
                 BorderThickness = new Thickness(0, 2, 2, 0),
                 Width = 64,
-                Height = 64,
+                Height = 32,
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Right
             });
@@ -70,7 +70,7 @@ namespace AmaScan.App.UI
                 BorderBrush = new SolidColorBrush(Colors.Black),
                 BorderThickness = new Thickness(0, 0, 2, 2),
                 Width = 64,
-                Height = 64,
+                Height = 32,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Right
             });
@@ -79,15 +79,15 @@ namespace AmaScan.App.UI
                 BorderBrush = new SolidColorBrush(Colors.Black),
                 BorderThickness = new Thickness(2, 0, 0, 2),
                 Width = 64,
-                Height = 64,
+                Height = 32,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Left
             });
             crosshairGrid.Children.Add(new Rectangle()
             {
-                Fill = new SolidColorBrush(Colors.Black),
-                Width = 128,
-                Height = 2,
+                Fill = new SolidColorBrush(Colors.Red),
+                Width = 240,
+                Height = 4,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center
             });

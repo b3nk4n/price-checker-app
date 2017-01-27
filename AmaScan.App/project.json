@@ -7,7 +7,8 @@
     "Microsoft.Toolkit.Uwp": "1.2.0",
     "Microsoft.Toolkit.Uwp.UI": "1.2.0",
     "Microsoft.Toolkit.Uwp.UI.Controls": "1.2.0",
-    "SwipeListView": "1.2.0"
+    "SwipeListView": "1.2.0",
+    "ZXing.Net.Mobile": "2.1.47"
   },
   "frameworks": {
     "uap10.0": {}
