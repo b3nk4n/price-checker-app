@@ -67,6 +67,9 @@ namespace AmaScan.App.ViewModels
                     {
                         BarcodeFormat.EAN_8,
                         BarcodeFormat.EAN_13,
+                        BarcodeFormat.UPC_A,
+                        BarcodeFormat.UPC_E,
+                        BarcodeFormat.UPC_EAN_EXTENSION
                     }
                 };
 
@@ -103,20 +106,23 @@ namespace AmaScan.App.ViewModels
             if (args.IsSuccess)
             {
                 var htmlContent = await WebViewer.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
-                var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+                var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
                 var imgUri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
 
-                var historyItem = new HistoryItem()
+                if (title != string.Empty)
                 {
-                    Link = args.Uri,
-                    Timestamp = DateTimeOffset.Now,
-                    Title = title,
-                    Thumbnail = imgUri
-                };
+                    var historyItem = new HistoryItem()
+                    {
+                        Link = args.Uri,
+                        Timestamp = DateTimeOffset.Now,
+                        Title = title,
+                        Thumbnail = imgUri
+                    };
 
-                // save to history
-                HistoryService.Items.Add(historyItem);
-                await HistoryService.Save();
+                    // save to history
+                    HistoryService.Items.Add(historyItem);
+                    await HistoryService.Save();
+                }
             }
         }
 
