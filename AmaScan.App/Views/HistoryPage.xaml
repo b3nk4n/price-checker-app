@@ -15,23 +15,22 @@
         <uwpcConverters:DateTimeConverter x:Key="dtConv" />
 
         <DataTemplate x:Key="HistoryItemDataTemplate">
-            <Grid Margin="4" Padding="16,0,8,0" Background="#01888888"
+            <Grid Margin="4" Padding="8,0,8,0" Background="#01888888"
                   RightTapped="HistoryItem_RightTapped" Tapped="HistoryItem_Tapped" Holding="NoteListItem_Holding" Tag="{Binding }">
                 <!-- Give it a light color, because Transparent is BADLY clickable/touchable -->
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Height="72" Width="72" Margin="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse Grid.Column="0" Height="64" Width="64" Margin="8">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding Thumbnail}"/>
+                            <ImageBrush ImageSource="{Binding Thumbnail}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" />
                         </Ellipse.Fill>
                     </Ellipse>
-                    <StackPanel Margin="8">
-                        <TextBlock Text="{Binding Timestamp, Converter={StaticResource dtConv}}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" FontSize="14" />
-                        <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
-                    </StackPanel>
-                    
+                <StackPanel Grid.Column="1" Margin="8" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Timestamp, Converter={StaticResource dtConv}}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" FontSize="10" />
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" />
                 </StackPanel>
-                
-
             </Grid>
         </DataTemplate>
     </Page.Resources>
