@@ -39,12 +39,21 @@ namespace AmaScan.Common.Tools
             return new Uri(FALLBACK_IMAGE, UriKind.Relative);
         }
 
-        public static string ExtractTextFromHtml(string html, string id)
+        public static string ExtractTextFromHtml(string html)
         {
-            Regex regex = new Regex(string.Format("<h2 .*? class=\"a-size-medium a-color-null .*?>(.*?)</h2>", id), RegexOptions.Singleline);
+            Regex regex = new Regex("<h2 .*? class=\"a-size-medium a-color-null .*?>(.*?)</h2>", RegexOptions.Singleline);
             var v = regex.Match(html);
             string s = v.Groups[1].ToString();
             string trimmedContent = s.Trim();
+            trimmedContent = trimmedContent.Replace("  ", " ");
+
+            if (trimmedContent != string.Empty)
+                return trimmedContent;
+
+            Regex regexMobile = new Regex("<h5 class=\"sx-title\"><span class=\"a-size-base a-color-base\">(.*?)</span></h5>", RegexOptions.Singleline);
+            var vMobile = regexMobile.Match(html);
+            string sMobile = vMobile.Groups[1].ToString();
+            trimmedContent = sMobile.Trim();
             trimmedContent = trimmedContent.Replace("  ", " ");
             return trimmedContent;
         }
@@ -55,6 +64,15 @@ namespace AmaScan.Common.Tools
             Regex regex = new Regex("<a class=\"a-link-normal a-text-normal\" .*?>(.*?)</a>", RegexOptions.Singleline);
             var v = regex.Match(html);
             string htmlInner = v.Groups[1].ToString();
+
+            if (htmlInner == string.Empty)
+            {
+                // retry for mobile:
+                //img class="sx-product-image"
+                Regex regexMobile = new Regex("<div class=\"sx-table-image-holder\">(.*?)</div>", RegexOptions.Singleline);
+                var vMobile = regexMobile.Match(html);
+                htmlInner = vMobile.Groups[1].ToString();
+            }
 
             // extract img-src
             Regex regexInner = new Regex("src\\s*=\\s*\"(.+?)\"", RegexOptions.Singleline);

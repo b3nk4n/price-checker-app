@@ -117,8 +117,12 @@
     <Content Include="Assets\Html\accu.html" />
     <Content Include="Assets\Html\camera.html" />
     <Content Include="Assets\Html\not-found.html" />
+    <Content Include="Assets\Html\shimano-mobile.html" />
+    <Content Include="Assets\Html\shimano.html" />
+    <Content Include="Assets\Html\tomtaylor-mobile.html" />
     <Content Include="Assets\Html\tomtaylor.html" />
     <Content Include="Assets\Html\zeitwissen.html" />
+    <Content Include="Assets\Html\zeitwissen-mobile.html" />
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

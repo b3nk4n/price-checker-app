@@ -66,13 +66,37 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/zeitwissen.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
 
             Assert.AreEqual("Die Zeit Wissen - Woolen wir zu Perfekt sein", title);
         }
 
         [TestMethod]
         public async Task TestZeitWissenExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/zeitwissen.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/61mLbN-4bkL._AC_US174_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
+        #region ZeitWissen Mobile
+
+        [TestMethod]
+        public async Task TestZeitWissenMobileExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/zeitwissen-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
+
+            Assert.AreEqual("Die Zeit Wissen - Woolen wir zu Perfekt sein", title);
+        }
+
+        [TestMethod]
+        public async Task TestZeitWissenMobileExtractImageUri()
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/zeitwissen.html");
             var htmlContent = await StorageService.ReadFile(file);
@@ -90,7 +114,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/tomtaylor.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
 
             Assert.AreEqual("TOM TAILOR Herren Freizeithemd Floyd Indigo Look Stripe Shirt", title);
         }
@@ -107,6 +131,78 @@ namespace AmaScan.UnitTests.Tools
 
         #endregion
 
+        #region TomTaylor Mobile
+
+        [TestMethod]
+        public async Task TestTomTaylorMobileExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/tomtaylor-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
+
+            Assert.AreEqual("TOM TAILOR Herren Freizeithemd Floyd Indigo Look Stripe Shirt", title);
+        }
+
+        [TestMethod]
+        public async Task TestTomTaylorMobileExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/tomtaylor-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/51LFoT9DwqL._AC_SX354_SY510_QL65_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
+        #region Shimano
+
+        [TestMethod]
+        public async Task TestShimanoExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/shimano.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
+
+            Assert.AreEqual("Shimano Cycling Cassette CS-HG20-7 - 587632", title);
+        }
+
+        [TestMethod]
+        public async Task TestShimanoExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/shimano.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-na.ssl-images-amazon.com/images/I/51S4nyZB2qL._AC_US160_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
+        #region Shimano
+
+        [TestMethod]
+        public async Task TestShimanoMobileExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/shimano-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
+
+            Assert.AreEqual("Shimano 7 Speed Cassette CS-HG20-7 (Brown/ Black) by Shimano", title);
+        }
+
+        [TestMethod]
+        public async Task TestShimanoMobileExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/shimano-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/51S4nyZB2qL._AC_SX354_SY510_QL65_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
         #region Not Found
 
         [TestMethod]
@@ -114,7 +210,7 @@ namespace AmaScan.UnitTests.Tools
         {
             var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/not-found.html");
             var htmlContent = await StorageService.ReadFile(file);
-            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent, "productTitle");
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
 
             Assert.AreEqual(string.Empty, title);
         }
