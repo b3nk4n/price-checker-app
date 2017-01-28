@@ -9,14 +9,9 @@ using Universal.UI.Xaml.Controls;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Controls;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace AmaScan.App.Views
 {
@@ -52,15 +47,6 @@ namespace AmaScan.App.Views
             }
         }
 
-        private void HistoryItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var item = (sender as FrameworkElement).Tag as HistoryItem;
-            if (item != null)
-            {
-                NavigationService.Navigate(typeof(MainPage), string.Format("{0}{1}", AppConstants.NAV_LINK, item.Link.AbsoluteUri));
-            }
-        }
-
         #region Context menu
 
         private void HistoryItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -90,6 +76,16 @@ namespace AmaScan.App.Views
         {
             var contextMenu = CreateContextMenu(item);
             contextMenu.ShowAt(target, offset);
+        }
+
+        private void SplitViewList_ItemClicked(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as HistoryItem;
+
+            if (item != null)
+            {
+                NavigationService.Navigate(typeof(MainPage), string.Format("{0}{1}", AppConstants.NAV_LINK, item.Link.AbsoluteUri));
+            }
         }
 
         /// <summary>

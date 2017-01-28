@@ -16,7 +16,7 @@
 
         <DataTemplate x:Key="HistoryItemDataTemplate">
             <Grid Margin="4" Padding="8,0,8,0" Background="#01888888"
-                  RightTapped="HistoryItem_RightTapped" Tapped="HistoryItem_Tapped" Holding="NoteListItem_Holding" Tag="{Binding }">
+                  RightTapped="HistoryItem_RightTapped" Holding="NoteListItem_Holding" Tag="{Binding }">
                 <!-- Give it a light color, because Transparent is BADLY clickable/touchable -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -45,7 +45,7 @@
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <swipe:SwipeListView ItemsSource="{Binding Items}" Padding="0, 16" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                                  ItemTemplate="{StaticResource HistoryItemDataTemplate}" ItemSwipe="SwipeListView_ItemSwipe"
-                                 SelectionMode="None" ItemRightBehavior="Expand">
+                                 SelectionMode="None" ItemRightBehavior="Expand" ItemLeftBehavior="Disabled" IsItemClickEnabled="True" ItemClick="SplitViewList_ItemClicked">
                 <swipe:SwipeListView.ItemRightContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

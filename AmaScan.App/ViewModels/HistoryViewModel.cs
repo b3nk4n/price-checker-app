@@ -2,8 +2,10 @@
 using AmaScan.App.Services;
 using Ninject;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Mvvm;
+using Windows.UI.Xaml.Navigation;
 
 namespace AmaScan.App.ViewModels
 {
@@ -14,6 +16,8 @@ namespace AmaScan.App.ViewModels
         public ICommand RemoveCommand { get; private set; }
         public ICommand OpenInExternalBrowserCommand { get; private set; }
 
+        public ObservableCollection<HistoryItem> Items { get; private set; }
+
         [Inject]
         public HistoryViewModel(IHistoryService historyService)
         {
@@ -21,6 +25,7 @@ namespace AmaScan.App.ViewModels
 
             RemoveCommand = new DelegateCommand<HistoryItem>((item) =>
             {
+                Items.Remove(item);
                 HistoryService.Items.Remove(item);
                 HistoryService.Save();
             });
@@ -30,12 +35,13 @@ namespace AmaScan.App.ViewModels
             });
         }
 
-        /// <summary>
-        /// Gets all history items.
-        /// </summary>
-        public IList<HistoryItem> Items
+        public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            get { return HistoryService.Items; }
+            base.OnNavigatedTo(parameter, mode, state);
+
+            // load items
+            Items = new ObservableCollection<HistoryItem>(HistoryService.Items);
+            RaisePropertyChanged("Items");
         }
 
         /// <summary>

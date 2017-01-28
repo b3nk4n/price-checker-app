@@ -115,7 +115,7 @@ namespace AmaScan.App.ViewModels
                     };
 
                     // save to history
-                    HistoryService.Items.Add(historyItem);
+                    HistoryService.Items.Insert(0, historyItem);
                     await HistoryService.Save();
                 }
             }
