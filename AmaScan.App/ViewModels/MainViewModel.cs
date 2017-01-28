@@ -24,7 +24,9 @@ namespace AmaScan.App.ViewModels
 
         public IDeviceInfoService DeviceInfoService { get; private set; }
 
-        public IHistoryService HistoryService {get; private set; }
+        public IHistoryService HistoryService { get; private set; }
+
+        public IStatusBarService StatusBarService { get; private set; }
 
         public static string LastScannedCode { get; private set; }
 
@@ -42,10 +44,11 @@ namespace AmaScan.App.ViewModels
         public ICommand ScanCommand { get; private set; }
 
         [Inject]
-        public MainViewModel(IDeviceInfoService deviceInfoService, IHistoryService historyService)
+        public MainViewModel(IDeviceInfoService deviceInfoService, IHistoryService historyService, IStatusBarService statusBarService)
         {
             DeviceInfoService = deviceInfoService;
             HistoryService = historyService;
+            StatusBarService = statusBarService;
 
             ScanCommand = new DelegateCommand(async () =>
             {
@@ -114,9 +117,11 @@ namespace AmaScan.App.ViewModels
             }
         }
 
-        public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             base.OnNavigatedTo(parameter, mode, state);
+
+            await StatusBarService.HideAsync();
 
             var uri = AmazonUriTools.GetUri();
 

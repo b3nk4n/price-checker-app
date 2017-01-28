@@ -27,9 +27,9 @@ namespace AmaScan.App
         /// <summary>
         /// Gets the license service.
         /// </summary>
-        private ILicenseService LicenseService { get; set; }
+        public ILicenseService LicenseService { get; private set; }
 
-        private IHistoryService HistoryService { get; set; }
+        public IHistoryService HistoryService { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -60,7 +60,6 @@ namespace AmaScan.App
             // setup theme colors (mainly for title bar)
             ColorPropertiesDark = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT);
             ColorPropertiesLight = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT, Colors.White, AppConstants.COLOR_ACCENT);
-
 #if DEBUG
             await LicenseService.RefeshSimulator();
 #endif
