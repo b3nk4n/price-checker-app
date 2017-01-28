@@ -11,6 +11,7 @@ using AmaScan.Common.Tools;
 using AmaScan.App.Models;
 using Ninject;
 using AmaScan.App.Services;
+using System.Globalization;
 
 namespace AmaScan.App.ViewModels
 {
@@ -26,10 +27,6 @@ namespace AmaScan.App.ViewModels
         public IHistoryService HistoryService {get; private set; }
 
         public static string LastScannedCode { get; private set; }
-
-        public string BaseUri { get; private set; } = "https://www.amazon.de/";
-
-        public string SearchPath { get; private set; } = "s/field-keywords=";
 
         public WebView WebViewer { get; private set; }
 
@@ -64,11 +61,7 @@ namespace AmaScan.App.ViewModels
                     AutoRotate = false,
                     PossibleFormats = new List<BarcodeFormat>()
                     {
-                        BarcodeFormat.EAN_8,
-                        BarcodeFormat.EAN_13,
-                        BarcodeFormat.UPC_A,
-                        BarcodeFormat.UPC_E,
-                        BarcodeFormat.UPC_EAN_EXTENSION
+                        BarcodeFormat.All_1D
                     }
                 };
 
@@ -83,7 +76,7 @@ namespace AmaScan.App.ViewModels
 
                         // delayed navigation to the product, since this is not running in the new page
                         LastScannedCode = parsed.DisplayResult;
-                        Uri = new Uri(string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode), UriKind.Absolute);
+                        Uri = AmazonUriTools.GetSearchUri(LastScannedCode);
                         WebViewer.NavigationCompleted += WebViewer_NavigationCompleted;
                     });
                 }
@@ -125,7 +118,7 @@ namespace AmaScan.App.ViewModels
         {
             base.OnNavigatedTo(parameter, mode, state);
 
-            string uri = BaseUri;
+            var uri = AmazonUriTools.GetUri();
 
             if (parameter != null)
             {
@@ -134,17 +127,17 @@ namespace AmaScan.App.ViewModels
                 {
                     if (paramData.StartsWith(AppConstants.NAV_LINK))
                     {
-                        uri = paramData.Replace(AppConstants.NAV_LINK, string.Empty);
+                        uri = new Uri(paramData.Replace(AppConstants.NAV_LINK, string.Empty), UriKind.Absolute);
                     }
                 }
             }
             else if (LastScannedCode != null)
             {
-                uri = string.Format("{0}{1}{2}", BaseUri, SearchPath, LastScannedCode);
+                uri = AmazonUriTools.GetSearchUri(LastScannedCode);
             }
 
             // browse to the specified page
-            Uri = new Uri(uri, UriKind.Absolute);
+            Uri = uri;
         }
 
         public void RegisterWebView(WebView webViewer)
