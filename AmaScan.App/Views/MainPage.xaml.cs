@@ -27,6 +27,14 @@ namespace AmaScan.App.Views
             {
                 ButtonPloppInAnimation.Begin();
             };
+
+            WebViewer.NavigationCompleted += (s, e) =>
+            {
+                if (e.IsSuccess)
+                {
+                    Progress.IsActive = false;
+                }
+            };
         }
 
     }
