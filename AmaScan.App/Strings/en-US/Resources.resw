@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.AppDescription" xml:space="preserve">
-    <value>Simply scan any product barcode and compare the prices and user reviews on Amazone.</value>
+    <value>Simply scan any product barcode and compare the prices and user reviews on Amazon.</value>
     <comment>AboutPage</comment>
   </data>
   <data name="About.ContributorsTitle" xml:space="preserve">
@@ -152,6 +152,10 @@
   <data name="AboutTitle.Text" xml:space="preserve">
     <value>ABOUT</value>
     <comment>AboutPage</comment>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Price Checker</value>
+    <comment>App</comment>
   </data>
   <data name="Delete.Label" xml:space="preserve">
     <value>Delete</value>

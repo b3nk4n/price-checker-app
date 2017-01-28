@@ -92,12 +92,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ProgressRing Grid.Row="1" x:Name="Progress" VerticalAlignment="Center" HorizontalAlignment="Center"
-                      Height="64" Width="64" IsActive="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
-        
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <WebView x:Name="WebViewer" uwpcControls:WebViewExtensions.UriSource="{Binding Uri}" DefaultBackgroundColor="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </Grid>
+
+        <ProgressRing Grid.Row="1" x:Name="Progress" VerticalAlignment="Center" HorizontalAlignment="Center"
+                      Height="64" Width="64" IsActive="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
 
         <toolkit:DropShadowPanel ShadowOpacity="0.66">
             <uwpcControls:PageHeader Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="White">

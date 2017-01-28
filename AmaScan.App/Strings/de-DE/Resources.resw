@@ -153,6 +153,10 @@
     <value>INFO</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Preis Checker</value>
+    <comment>App</comment>
+  </data>
   <data name="Delete.Label" xml:space="preserve">
     <value>Entfernen</value>
     <comment>HistoryPage</comment>

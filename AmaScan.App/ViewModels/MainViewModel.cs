@@ -12,6 +12,7 @@ using AmaScan.App.Models;
 using Ninject;
 using AmaScan.App.Services;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace AmaScan.App.ViewModels
 {
@@ -31,6 +32,8 @@ namespace AmaScan.App.ViewModels
         public static string LastScannedCode { get; private set; }
 
         public WebView WebViewer { get; private set; }
+
+        private const string URL_KEY = "url";
 
         /// <summary>
         /// Gets or sets the URI page.
@@ -136,6 +139,10 @@ namespace AmaScan.App.ViewModels
                     }
                 }
             }
+            else if (state.ContainsKey(URL_KEY))
+            {
+                uri = new Uri(state[URL_KEY] as string, UriKind.Absolute);
+            }
             else if (LastScannedCode != null)
             {
                 uri = AmazonUriTools.GetSearchUri(LastScannedCode);
@@ -143,6 +150,16 @@ namespace AmaScan.App.ViewModels
 
             // browse to the specified page
             Uri = uri;
+        }
+
+        public override async Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        {
+            await base.OnNavigatedFromAsync(state, suspending);
+
+            if (suspending)
+            {
+                state.Add(URL_KEY, Uri.OriginalString);
+            }
         }
 
         public void RegisterWebView(WebView webViewer)
