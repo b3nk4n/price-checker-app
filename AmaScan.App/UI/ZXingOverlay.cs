@@ -43,8 +43,8 @@ namespace AmaScan.App.UI
             };
             var crosshairGrid = new Grid()
             {
-                Width = 280,
-                Height = 120,
+                Width = 480,
+                Height = 160,
                 Opacity = 0.2,
             };
             crosshairGrid.Children.Add(new Border()
@@ -54,7 +54,8 @@ namespace AmaScan.App.UI
                 Width = 64,
                 Height = 32,
                 VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(64, 0, 0, 0)
             });
             crosshairGrid.Children.Add(new Border()
             {
@@ -63,7 +64,8 @@ namespace AmaScan.App.UI
                 Width = 64,
                 Height = 32,
                 VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Right
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 0, 64, 0)
             });
             crosshairGrid.Children.Add(new Border()
             {
@@ -72,7 +74,8 @@ namespace AmaScan.App.UI
                 Width = 64,
                 Height = 32,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Right
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 0, 64, 0)
             });
             crosshairGrid.Children.Add(new Border()
             {
@@ -81,12 +84,13 @@ namespace AmaScan.App.UI
                 Width = 64,
                 Height = 32,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(64, 0, 0, 0)
             });
             crosshairGrid.Children.Add(new Rectangle()
             {
-                Fill = new SolidColorBrush(Colors.Red),
-                Width = 240,
+                Fill = new SolidColorBrush(Colors.Black),
+                Width = 480,
                 Height = 4,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center
