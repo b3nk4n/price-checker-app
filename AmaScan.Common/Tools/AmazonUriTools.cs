@@ -45,16 +45,26 @@ namespace AmaScan.Common.Tools
                         return ".co.uk";
                     else if (ci.Name == "en-AU")
                         return ".com.au";
+                    else if (ci.Name == "en-IN")
+                        return ".in";
                     else
                         return ".com";
                 case "jp":
                     return ".jp";
                 case "es":
-                    return ".es";
+                    if (ci.Name == "es-MX")
+                        return ".com.mx";
+                    else
+                        return ".es";
                 case "it":
                     return ".it";
-                case "hi": // hi-IN
+                case "hi":
                     return ".in";
+                case "pt":
+                    if (ci.Name == "pt-BR")
+                        return ".com.br";
+                    else
+                        return ".com";
                 default:
                     return DEFAULT_DOMAIN;
             }
