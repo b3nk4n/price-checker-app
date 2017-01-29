@@ -112,6 +112,12 @@
     <Compile Include="Tools\AmazonUriTools.cs" />
     <EmbeddedResource Include="Properties\AmaScan.Common.rd.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\uwpcore.framework\Framework\UWPCore.Framework\UWPCore.Framework.csproj">
+      <Project>{A730354A-B009-4392-8D04-E065347E548A}</Project>
+      <Name>UWPCore.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -131,8 +131,8 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\amascan.png" />
     <Content Include="Assets\IAP\WindowsStoreProxy.xml" />
+    <Content Include="Assets\Images\fallback.png" />
     <Content Include="Assets\Images\ninject-logo.png" />
     <Content Include="Assets\Images\uwpcommunity-logo.png" />
     <Content Include="Assets\Images\zxing-logo.png" />
