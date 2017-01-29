@@ -166,7 +166,7 @@
     <comment>HistoryPage</comment>
   </data>
   <data name="MainTitle.Text" xml:space="preserve">
-    <value>SUCHE</value>
+    <value>SCANNEN &amp; SUCHEN</value>
     <comment>MainPage</comment>
   </data>
   <data name="Nav.About" xml:space="preserve">
@@ -178,7 +178,7 @@
     <comment>Navigation</comment>
   </data>
   <data name="Nav.Main" xml:space="preserve">
-    <value>Search</value>
+    <value>Scannen &amp; Suchen</value>
     <comment>Navigation</comment>
   </data>
   <data name="Nav.Settings" xml:space="preserve">
