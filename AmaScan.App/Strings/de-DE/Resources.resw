@@ -154,7 +154,7 @@
     <comment>AboutPage</comment>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>Preis Checker</value>
+    <value>PreisChecker</value>
     <comment>App</comment>
   </data>
   <data name="Delete.Label" xml:space="preserve">
