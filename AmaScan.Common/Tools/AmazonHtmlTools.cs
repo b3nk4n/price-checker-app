@@ -65,7 +65,7 @@ namespace AmaScan.Common.Tools
 
         public static Uri ExtractImageUriFromHtml(string html)
         {
-            extract html region
+           // extract html region
            Regex regex = new Regex("<a class=\"a-link-normal a-text-normal\" .*?>(.*?)</a>", RegexOptions.Singleline);
             var v = regex.Match(html);
             string htmlInner = v.Groups[1].ToString();

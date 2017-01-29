@@ -1,6 +1,7 @@
 ﻿using UWPCore.Framework.Controls;
 using AmaScan.App.ViewModels;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Core;
 
 namespace AmaScan.App.Views
 {
@@ -33,6 +34,15 @@ namespace AmaScan.App.Views
                 if (e.IsSuccess)
                 {
                     Progress.IsActive = false;
+                }
+            };
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) =>
+            {
+                if (WebViewer.CanGoBack)
+                {
+                    e.Handled = true;
+                    WebViewer.GoBack();
                 }
             };
         }
