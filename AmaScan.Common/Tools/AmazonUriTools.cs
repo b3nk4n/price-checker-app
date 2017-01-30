@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Globalization;
+using Windows.System.UserProfile;
 
 namespace AmaScan.Common.Tools
 {
@@ -13,7 +13,15 @@ namespace AmaScan.Common.Tools
 
         public static string GetBase()
         {
-            return string.Format(BASE_URI_FORMAT, GetCultureDomain());
+            AmazonRegion selectedRegion = (AmazonRegion)Enum.Parse(typeof(AmazonRegion), AppSettings.Region.Value);
+            string domain;
+
+            if (selectedRegion == AmazonRegion.Auto)
+                domain = GetDomainOfRegionAuto();
+            else
+                domain = GetDomainOfRegion(selectedRegion);
+
+            return string.Format(BASE_URI_FORMAT, domain);
         }
 
         public static Uri GetUri()
@@ -26,45 +34,105 @@ namespace AmaScan.Common.Tools
             return new Uri(string.Format("{0}{1}{2}", GetBase(), SEARCH_URI, searchTerm), UriKind.Absolute);
         }
 
-        private static string GetCultureDomain()
+        private static string GetDomainOfRegionAuto()
         {
-            var ci = CultureInfo.CurrentCulture;
-            switch (ci.TwoLetterISOLanguageName)
+            var sysRegion = GlobalizationPreferences.HomeGeographicRegion.ToUpper();
+
+            switch (sysRegion)
             {
-                case "de":
+                // amazon official
+                case "DE":
                     return ".de";
-                case "fr":
-                    if (ci.Name == "fr-CA")
-                        return ".ca";
-                    else
-                        return ".fr";
-                case "nl":
+                case "FR":
+                    return ".fr";
+                case "CA":
+                    return ".ca";
+                case "CN":
+                    return ".cn";
+                case "NL":
                     return ".nl";
-                case "en":
-                    if (ci.Name == "en-GB")
-                        return ".co.uk";
-                    else if (ci.Name == "en-AU")
-                        return ".com.au";
-                    else if (ci.Name == "en-IN")
-                        return ".in";
-                    else
-                        return ".com";
-                case "jp":
-                    return ".jp";
-                case "es":
-                    if (ci.Name == "es-MX")
-                        return ".com.mx";
-                    else
-                        return ".es";
-                case "it":
-                    return ".it";
-                case "hi":
+                case "GB":
+                    return ".co.uk";
+                case "AU":
+                    return ".com.au";
+                case "IN":
                     return ".in";
-                case "pt":
-                    if (ci.Name == "pt-BR")
-                        return ".com.br";
-                    else
-                        return ".com";
+                case "US":
+                    return ".com";
+                case "jp":
+                    return ".co.jp";
+                case "ES":
+                    return ".es";
+                case "MX":
+                    return ".com.mx";   
+                case "IT":
+                    return ".it";
+                case "BR":
+                    return ".com.br";
+
+                // other:
+                case "CH":
+                    return ".de";
+                case "AT":
+                    return ".de";
+                case "PT":
+                    return ".co.uk";
+                case "NO":
+                    return ".co.uk";
+                case "SE":
+                    return ".co.uk";
+                case "CZ":
+                    return ".co.uk";
+                case "PL":
+                    return ".co.uk";
+                case "DK":
+                    return ".co.uk";
+                case "FI":
+                    return ".co.uk";
+                case "TR":
+                    return ".co.uk";
+                case "BE":
+                    return ".co.uk";
+                case "UA":
+                    return ".co.uk";
+
+                default:
+                    return DEFAULT_DOMAIN;
+            }
+        }
+
+        private static string GetDomainOfRegion(AmazonRegion region)
+        {
+            switch (region)
+            {
+                case AmazonRegion.Germany:
+                    return ".de";
+                case AmazonRegion.France:
+                    return ".fr";
+                case AmazonRegion.Canada:
+                    return ".ca";
+                case AmazonRegion.China:
+                    return ".cn";
+                case AmazonRegion.Netherlands:
+                    return ".nl";
+                case AmazonRegion.UnitedKingdom:
+                    return ".co.uk";
+                case AmazonRegion.Australia:
+                    return ".com.au";
+                case AmazonRegion.India:
+                    return ".in";
+                case AmazonRegion.USA:
+                    return ".com";
+                case AmazonRegion.Japan:
+                    return ".co.jp";
+                case AmazonRegion.Spain:
+                    return ".es";
+                case AmazonRegion.Mexico:
+                    return ".com.mx";
+                case AmazonRegion.Italy:
+                    return ".it";
+                case AmazonRegion.Brazil:
+                    return ".com.br";
                 default:
                     return DEFAULT_DOMAIN;
             }

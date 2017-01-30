@@ -193,6 +193,10 @@
     <value>Personalization</value>
     <comment>SettingsPage</comment>
   </data>
+  <data name="SettingsRegion.Header" xml:space="preserve">
+    <value>Country/Region</value>
+    <comment>SettingsPage</comment>
+  </data>
   <data name="SettingsThemeColor.Header" xml:space="preserve">
     <value>Theme color</value>
     <comment>SettingsPage</comment>

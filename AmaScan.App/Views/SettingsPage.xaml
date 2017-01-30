@@ -24,6 +24,15 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="16">
                     <TextBlock x:Uid="SettingsPersonalization" Style="{StaticResource TitleTextBlockStyle}" Text="Personalization" Margin="4,12,4,4" />
+                    <ComboBox x:Uid="SettingsRegion" Header="Region" Margin="4,4,4,12" Width="264"
+                              ItemsSource="{x:Bind ViewModel.RegionEnumSource.ItemsSource}" SelectedItem="{x:Bind ViewModel.RegionEnumSource.SelectedItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayValueConv}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
                     <ComboBox x:Uid="SettingsThemeColor" Header="Theme color" Margin="4,4,4,12" Width="264"
                               ItemsSource="{x:Bind ViewModel.ThemeEnumSource.ItemsSource}" SelectedItem="{x:Bind ViewModel.ThemeEnumSource.SelectedItem, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>

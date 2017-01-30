@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AmaScan.Common;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Controls;
@@ -19,6 +21,8 @@ namespace AmaScan.App.ViewModels
         /// </summary>
         public EnumSource<ElementTheme> ThemeEnumSource { get; private set; } = new EnumSource<ElementTheme>();
 
+        public EnumSource<AmazonRegion> RegionEnumSource { get; private set; } = new EnumSource<AmazonRegion>();
+
         public SettingsViewModel()
         {
         }
@@ -29,6 +33,7 @@ namespace AmaScan.App.ViewModels
 
             // setup selections
             ThemeEnumSource.SelectedValue = UniversalPage.PageTheme.Value;
+            RegionEnumSource.SelectedValue = AppSettings.Region.Value;
         }
 
         public async override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
@@ -36,6 +41,7 @@ namespace AmaScan.App.ViewModels
             await base.OnNavigatedFromAsync(state, suspending);
 
             // save settings
+            AppSettings.Region.Value = RegionEnumSource.SelectedValue;
 
             // apply theme changes
             UniversalPage.PageTheme.Value = ThemeEnumSource.SelectedValue;
