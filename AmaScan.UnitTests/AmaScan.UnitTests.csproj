@@ -116,6 +116,7 @@
   <ItemGroup>
     <Content Include="Assets\Html\accu.html" />
     <Content Include="Assets\Html\camera.html" />
+    <Content Include="Assets\Html\mainboard-mobile.html" />
     <Content Include="Assets\Html\not-found.html" />
     <Content Include="Assets\Html\shimano-mobile.html" />
     <Content Include="Assets\Html\shimano.html" />

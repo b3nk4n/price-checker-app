@@ -11,7 +11,6 @@ using AmaScan.Common.Tools;
 using AmaScan.App.Models;
 using Ninject;
 using AmaScan.App.Services;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace AmaScan.App.ViewModels
@@ -80,10 +79,12 @@ namespace AmaScan.App.ViewModels
                     {
                         var parsed = ZXing.Client.Result.ResultParser.parseResult(result);
 
-                        // delayed navigation to the product, since this is not running in the new page
-                        LastScannedCode = parsed.DisplayResult;
-                        Uri = AmazonUriTools.GetSearchUri(LastScannedCode);
-                        WebViewer.NavigationCompleted += WebViewer_NavigationCompleted;
+                        if (parsed != null)
+                        {
+                            LastScannedCode = parsed.DisplayResult;
+                            Uri = AmazonUriTools.GetSearchUri(LastScannedCode);
+                            WebViewer.NavigationCompleted += WebViewer_NavigationCompleted;
+                        }
                     });
                 }
             },

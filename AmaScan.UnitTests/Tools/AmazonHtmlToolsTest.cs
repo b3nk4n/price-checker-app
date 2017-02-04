@@ -179,7 +179,7 @@ namespace AmaScan.UnitTests.Tools
 
         #endregion
 
-        #region Shimano
+        #region Shimano Mobile
 
         [TestMethod]
         public async Task TestShimanoMobileExtractProductTitle()
@@ -199,6 +199,30 @@ namespace AmaScan.UnitTests.Tools
             var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
 
             Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/51S4nyZB2qL._AC_SX354_SY510_QL65_.jpg", uri.AbsoluteUri);
+        }
+
+        #endregion
+
+        #region Mainboard
+
+        [TestMethod]
+        public async Task TestMainboardMobileExtractProductTitle()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/mainboard-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var title = AmazonHtmlTools.ExtractTextFromHtml(htmlContent);
+
+            Assert.AreEqual("Gigabyte GA-965P-DS4 Rev 3.3 Mainboard", title);
+        }
+
+        [TestMethod]
+        public async Task TestMainboardMobileExtractImageUri()
+        {
+            var file = await StorageService.GetFileFromApplicationAsync("/Assets/Html/mainboard-mobile.html");
+            var htmlContent = await StorageService.ReadFile(file);
+            var uri = AmazonHtmlTools.ExtractImageUriFromHtml(htmlContent);
+
+            Assert.AreEqual("https://images-eu.ssl-images-amazon.com/images/I/41JUH-q9BwL._AC_SX118_SY170_QL70_.jpg", uri.AbsoluteUri);
         }
 
         #endregion
