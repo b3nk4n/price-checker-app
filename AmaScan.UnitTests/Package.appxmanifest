@@ -5,7 +5,7 @@
   <Properties>
     <DisplayName>AmaScan.UnitTests</DisplayName>
     <PublisherDisplayName>bsautermeister</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>C:\Projects\uwp\amascan\AmaScan.App\Assets\NewStoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -15,10 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="vstest.executionengine.universal.App" Executable="$targetnametoken$.exe" EntryPoint="AmaScan.UnitTests.App">
-      <uap:VisualElements DisplayName="AmaScan.UnitTests" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="AmaScan.UnitTests" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
-        </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#232F3E" />
+      <uap:VisualElements DisplayName="AmaScan.UnitTests" Square150x150Logo="C:\Projects\uwp\amascan\AmaScan.App\Assets\Square150x150Logo.png" Square44x44Logo="C:\Projects\uwp\amascan\AmaScan.App\Assets\Square44x44Logo.png" Description="AmaScan.UnitTests" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="C:\Projects\uwp\amascan\AmaScan.App\Assets\Wide310x150Logo.png" Square310x310Logo="C:\Projects\uwp\amascan\AmaScan.App\Assets\Square310x310Logo.png" Square71x71Logo="C:\Projects\uwp\amascan\AmaScan.App\Assets\Square71x71Logo.png"></uap:DefaultTile>
+        <uap:SplashScreen Image="C:\Projects\uwp\amascan\AmaScan.App\Assets\SplashScreen.png" BackgroundColor="#232F3E" />
       </uap:VisualElements>
     </Application>
   </Applications>
