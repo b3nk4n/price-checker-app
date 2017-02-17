@@ -161,6 +161,22 @@
     <value>Delete</value>
     <comment>HistoryPage</comment>
   </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.ExternalBrowser" xml:space="preserve">
+    <value>Due to legal restrictions, it is not allowed to order products via PriceChecker. This app aims to give fast access to compare prices or to read user reviews and product descriptions using the integrated barcode scanner. Do you want to continue in an external browser?</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.Information" xml:space="preserve">
+    <value>Information</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>MainPage</comment>
+  </data>
   <data name="HistoryTitle.Text" xml:space="preserve">
     <value>HISTORY</value>
     <comment>HistoryPage</comment>

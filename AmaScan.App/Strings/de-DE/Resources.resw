@@ -161,6 +161,22 @@
     <value>Entfernen</value>
     <comment>HistoryPage</comment>
   </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.ExternalBrowser" xml:space="preserve">
+    <value>Aus rechtlichen Gründen dürfen in dieser App keine Kaufvorgänge durchgeführt werden. Sie dient ausschließlich zum schnellen Zugriff auf Vergleichspreise oder zum Lesen der Nutzerbewertungen und Produktbeschreibungen mittels dem integrierten Barcode-Scanner. Wollen Sie nun im externen Browser öffnen fortfahren?</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.Information" xml:space="preserve">
+    <value>Information</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Dialog.OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>MainPage</comment>
+  </data>
   <data name="HistoryTitle.Text" xml:space="preserve">
     <value>VERLAUF</value>
     <comment>HistoryPage</comment>

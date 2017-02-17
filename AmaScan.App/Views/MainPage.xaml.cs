@@ -5,6 +5,11 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using System;
+using UWPCore.Framework.Launcher;
+using UWPCore.Framework.UI;
+using Windows.UI.Popups;
+using AmaScan.Common.Tools;
+using UWPCore.Framework.Common;
 
 namespace AmaScan.App.Views
 {
@@ -19,11 +24,19 @@ namespace AmaScan.App.Views
         public static IMainViewModel ViewModel { get; private set; }
 
         /// <summary>
+        /// Gets or sets the dialog service.
+        /// </summary>
+        public IDialogService DialogService { get; private set; }
+
+        public Localizer Localizer { get; private set; } = new Localizer();
+
+        /// <summary>
         /// A retry BACK timer, since a back-navigation in WebView is sometimes not working
         /// </summary>
         /// <seealso cref="http://stackoverflow.com/questions/39850284/webview-goback-not-working-at-first-time"/>
         private DispatcherTimer _retryBackNavTimer = new DispatcherTimer();
 
+        public Uri CurrentWebViewUri { get; private set; } = new Uri(AmazonUriTools.GetBase(), UriKind.Absolute);
 
         public MainPage()
         {
@@ -32,6 +45,8 @@ namespace AmaScan.App.Views
             ViewModel = Injector.Get<IMainViewModel>();
             ViewModel.RegisterWebView(WebViewer);
             DataContext = ViewModel;
+
+            DialogService = Injector.Get<IDialogService>();
 
             Loaded += (s, e) =>
             {
@@ -60,10 +75,23 @@ namespace AmaScan.App.Views
             }
         }
 
-        private void WebViewer_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private async void WebViewer_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             _retryBackNavTimer.Stop();
-            var s = args.Uri;
+
+            if (args.Uri.AbsolutePath.StartsWith("/ap/signin") ||
+                args.Uri.AbsolutePath.Contains("/redirector.html/ref=sign-in-redirect"))
+            {
+                args.Cancel = true;
+
+                await DialogService.ShowAsync(Localizer.Get("Dialog.ExternalBrowser"), Localizer.Get("Dialog.Information"), 0, 1, new UICommand(Localizer.Get("Dialog.OK"), async (a) => {
+                    await SystemLauncher.LaunchUriAsync(CurrentWebViewUri);
+                }), new UICommand(Localizer.Get("Dialog.Cancel"), (a) => {
+                    // NOP
+                }));
+
+                return;
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -82,6 +110,7 @@ namespace AmaScan.App.Views
             if (args.IsSuccess)
             {
                 Progress.IsActive = false;
+                CurrentWebViewUri = args.Uri;
             }
         }
 
