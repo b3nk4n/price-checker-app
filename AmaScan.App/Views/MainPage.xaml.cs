@@ -79,7 +79,8 @@ namespace AmaScan.App.Views
         {
             _retryBackNavTimer.Stop();
 
-            if (args.Uri.AbsolutePath.StartsWith("/ap/signin") ||
+            if (args.Uri.AbsolutePath.StartsWith("/ap/register") ||
+                args.Uri.AbsolutePath.StartsWith("/ap/signin") ||
                 args.Uri.AbsolutePath.Contains("/redirector.html/ref=sign-in-redirect"))
             {
                 args.Cancel = true;
