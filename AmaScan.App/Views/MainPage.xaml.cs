@@ -79,9 +79,19 @@ namespace AmaScan.App.Views
         {
             _retryBackNavTimer.Stop();
 
-            if (args.Uri.AbsolutePath.StartsWith("/ap/register") ||
-                args.Uri.AbsolutePath.StartsWith("/ap/signin") ||
-                args.Uri.AbsolutePath.Contains("/redirector.html/ref=sign-in-redirect"))
+            //if (args.Uri.AbsolutePath.StartsWith("/ap/register") ||
+            //    args.Uri.AbsolutePath.StartsWith("/ap/signin") ||
+            //    args.Uri.AbsolutePath.Contains("/redirector.html/ref=sign-in-redirect") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/prime") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/video") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/registry") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/cobrandcard/") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/cart/") ||
+            //    args.Uri.AbsolutePath.StartsWith("/gp/gc/") ||
+            if (args.Uri.AbsolutePath.StartsWith("/ap/") ||
+                args.Uri.AbsolutePath.StartsWith("/gp/") ||
+                args.Uri.AbsolutePath.Contains("/redirector.html/ref=sign-in-redirect") ||
+                args.Uri.Host == "sellercentral.amazon.de")
             {
                 args.Cancel = true;
 
